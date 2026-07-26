@@ -185,9 +185,10 @@ function coatPopUpRender(product) {
         </div>
     `
 };
-let a = document.querySelectorAll('.card_button_box');
 
-    a.forEach((button) => {    
+let cartButton = document.querySelectorAll('.card_button_box');
+
+    cartButton.forEach((button) => {    
         button.addEventListener('click', (event) => {
             let id = Number(button.id)
             cart = productList.find((item) => item.id === id);
