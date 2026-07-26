@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emazon Document</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style2.css">
+
+<body>
+    <header>
+        <div class="header_div">
+            <div class="nav-box flex_box align_center">
+                <div class="nav_left flex_box align_center">
+                    <div class="logo flex_box align_center justify_center">
+                        <img src="aside/imags/amazon_logo.png" alt="">
+                    </div>
+                    <div class="loct_box flex_box align_center">
+                        <div class="loct_svg flex_box align_center">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div class="loct_box_add">
+                            <p class="add_1">Deliver to</p>
+                            <p class="add_2">Pakistan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav_center flex_box align_center justify_center">
+                    <div class="serch_catgr flex_box align_center">
+                        <div class="serch_list">
+                            <p>All</p>
+                        </div>
+                        <div class="serch_list_btn">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <div class="serch_bar">
+                        <input type="text" placeholder="search Emazon">
+                    </div>
+                    <div class="serch_btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+                <div class="nav_right flex_box align_center">
+                    <div class="nav_right_lang flex_box align_center">
+                        <div class="lng_box flex_box align_center">
+                            <img src="aside/imags/us_flg.png" alt="">
+                            <p>EN</p>
+                        </div>
+                        <div class="icn_box">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <div class="nav_right_si-in flex_box align_center">
+                        <div class="si_in_box">
+                            <p>Hello, sign in</p>
+                            <h4>Account & Lists</h4>
+                        </div>
+                        <div class="si_in_btn">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <div class="nav_right_ord flex_box flex-start justify_center">
+                        <div class="odr_retan">
+                            <p>Returns</p>
+                        </div>
+                        <div class="ord_ord">
+                            <p>& Orders</p>
+                        </div>
+                    </div>
+                    <div class="nav_right_cart">
+                        <div class="cart_box flex_box justify_center align_center">
+                            <div class="cart_box flex_box ">
+                                <i class="fa-solid fa-cart-flatbed"></i>
+                                <span class="cart_count">0</span>
+                                <p>Cart</p>
+                            </div>
+                            <div class="cart">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Content-delvari-box"></div>
+        </div>
+    </header>
+    <section class="card_contenar ">
+        <div class="resale_box flex_box">
+            <h1>
+                <span>1-48 of over 10,000 results for</span>
+                <span class="dresses">"Dresses"</span>
+            </h1>
+            <span class="soft_featursd">
+                <span>Sort by:</span>
+                <span>Featured</span>
+                <i class="fa-solid fa-caret-down"></i>
+            </span>
+        </div>
+    </section>
+    <!-- -------------------------------cart--rite-section--------------------- -->
+    <div id="right-cart-section">
+    </div>
+    <!-- ---------------------------------------------card_section------------- -->
+    <section class="card_section">
+        <!-- ---------------------------cart--right-section---------------- -->
+        <div class="left_section"></div>
+        <!-- --------------------cart--cant--section---------- -->
+        <div class="right_section">
+            <div class="Results_box_info">
+                <h2>Results</h2>
+                <div class="prodect_pag_info">
+                    <span>Check each product page for other buying options. Price and other details may vary based on
+                        product size and color.</span>
+                </div>
+            </div>
+            <!-- ----------------card-render-section--------------- -->
+            <div class="card grid_4" id="card">
+            </div>
+        </div>
+    </section>
+    <div class="card_left_count disply_none">
+            <div class="subtotal">
+                <h1>Subtotal</h1>
+                <input type="hidden" value="ust">
+                <span>PKR 0.00</span>
+                <div class="go_to_card">
+                    <span>
+                        <a href="#">Go to Cart</a>
+                    </span>
+                </div>
+            </div>
+            <div class="left_card_box ">
+                <div class="left_card_img ">
+                    <ul class="left_add_cart">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <!-- ---------------------cart---pop---------------- -->
+    <div class="add_to_cart disply_none" id="cart_pop_up">
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
