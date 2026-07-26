@@ -1,9 +1,5 @@
 // import { productList } from "./data.js";
 // const card = document.querySelector('.card');
-const cartPopUp = document.getElementById('cart_pop_up');
-const productCart = document.getElementById('card');
-const addCart = document.getElementById('add-cart');
-
 const productList = [
     {
         id: 1,
@@ -61,13 +57,16 @@ const productList = [
     }
 ];
 
+const cartPopUp = document.getElementById('cart_pop_up');
+const productCart = document.getElementById('card');
+const addCart = document.getElementById('add-cart');
 
 let products = [];
 let cart = [];
+let cart2 = [];
 
 
 function renderProduct() {
-    productList.forEach((product) => {
         productCart.innerHTML = "";
 
         productList.forEach((product) => {
@@ -117,10 +116,9 @@ function renderProduct() {
                     </div>
                 </div> `
         })
-        addProduct(product)
-    })
 };
 renderProduct();
+
 
 function coatPopUpRender(product) {
 
@@ -187,11 +185,9 @@ function coatPopUpRender(product) {
         </div>
     `
 };
-let cart2 = [];
+let a = document.querySelectorAll('.card_button_box');
 
-function addProduct(params) {
-    const adToPopCart = document.querySelectorAll('.card_button_box');
-    adToPopCart.forEach((button) => {
+    a.forEach((button) => {    
         button.addEventListener('click', (event) => {
             let id = Number(button.id)
             cart = productList.find((item) => item.id === id);
@@ -200,8 +196,7 @@ function addProduct(params) {
             popUpCloseFunction(cart);
         })
     })
-    
-};
+
 const rightCart = document.querySelector('.card_left_count');
 const cardAddRight = document.getElementById('card');
 const rightAddcard = document.querySelector('.left_add_cart')
@@ -223,14 +218,10 @@ function popUpCloseFunction(prod) {
     })
 }
 function addCartBtnFunction(params, prod) {
-    let existingProduct = cart2.find(item => item.id === cart.id);
+    let existingProduct = cart2.find(item => item.id === prod.id);
     
     if (existingProduct) {
-       cart2 = cart2.filter((item)=>{
-        if (item.id === existingProduct.id) {
-            return item.quantity++
-        }
-       })
+       existingProduct.quantity++
         // console.log(cart2);   
     } else {
         cart2.push({
