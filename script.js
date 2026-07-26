@@ -62,8 +62,7 @@ const productCart = document.getElementById('card');
 const addCart = document.getElementById('add-cart');
 
 let products = [];
-let cart = [];
-let cart2 = [];
+let cartItems = [];
 
 
 function renderProduct() {
@@ -191,10 +190,10 @@ let cartButton = document.querySelectorAll('.card_button_box');
     cartButton.forEach((button) => {    
         button.addEventListener('click', (event) => {
             let id = Number(button.id)
-            cart = productList.find((item) => item.id === id);
+            const product = productList.find((item) => item.id === id);
             cartPopUp.classList.remove('disply_none');
-            coatPopUpRender(cart);
-            popUpCloseFunction(cart);
+            coatPopUpRender(product);
+            popUpCloseFunction(product);
         })
     })
 
@@ -219,19 +218,19 @@ function popUpCloseFunction(prod) {
     })
 }
 function addCartBtnFunction(params, prod) {
-    let existingProduct = cart2.find(item => item.id === prod.id);
+    let existingProduct = cartItems.find(item => item.id === prod.id);
     
     if (existingProduct) {
        existingProduct.quantity++
         // console.log(cart2);   
     } else {
-        cart2.push({
-        id: cart.id,
-        productName: cart.productName, 
-        productPrice: cart.productPrice,
-        productPriceDismal: cart.productPriceDismal,
-        productDate: cart.productDate,
-        img: cart.img,
+        cartItems.push({
+        id: prod.id,
+        productName: prod.productName, 
+        productPrice: prod.productPrice,
+        productPriceDismal: prod.productPriceDismal,
+        productDate: prod.productDate,
+        img: prod.img,
         quantity: 1,
         })
     }
@@ -243,8 +242,8 @@ function addCartBtnFunction(params, prod) {
 }
 function cardAddRightRenderFunction(params) {
     rightAddcard.innerHTML = "";
-    cart2.forEach((product)=>{
-        console.log(cart2);
+    cartItems.forEach((product)=>{
+        // console.log(cart2);
         
         rightAddcard.innerHTML += `
         <li>
