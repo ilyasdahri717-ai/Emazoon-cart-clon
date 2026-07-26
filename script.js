@@ -201,6 +201,8 @@ const rightCart = document.querySelector('.card_left_count');
 const cardAddRight = document.getElementById('card');
 const rightAddcard = document.querySelector('.left_add_cart')
 
+ 
+
 function popUpCloseFunction(prod) {
     
     const popCloseTop = document.getElementById('pop_close_one');
@@ -233,8 +235,7 @@ function addCartBtnFunction(params, prod) {
         img: prod.img,
         quantity: 1,
         })
-    }
-    
+    }    
     rightCart.classList.remove('disply_none');
     cardAddRight.classList.remove('grid_4');
     cardAddRight.classList.add('grid_3');
@@ -243,7 +244,6 @@ function addCartBtnFunction(params, prod) {
 function cardAddRightRenderFunction(params) {
     rightAddcard.innerHTML = "";
     cartItems.forEach((product)=>{
-        // console.log(cart2);
         
         rightAddcard.innerHTML += `
         <li>
@@ -254,15 +254,50 @@ function cardAddRightRenderFunction(params) {
                 <span>Limited time</span>
                 <span>PKR ${product.productPrice}.${product.productPriceDismal}</span>
             </div>
-            <div class="left_card_btn_div">
-                <button><span class="fa-solid fa-plus"></span></button>
+            <div  class="left_card_btn_div">
+                <button class="decrement" data-id="${product.id}"><span class="product_decrement">-</span></button>
                 <div class="count_div">
                     <span>${product.quantity}</span>
                 </div>
-                <button><span class="fa-solid fa-plus"></span></button>
+                <button class="increment" data-id="${product.id}"><span class="product_increment">+</span></button>
             </div>
         </li>
     `
+    productdecres()
+    productincremes()
     })
     
+}
+function productdecres() {
+    let decrement = document.querySelectorAll('.decrement');
+    decrement.forEach((button)=>{
+        button.addEventListener('click',(event)=>{
+            let id = Number(button.dataset.id);
+            let product = cartItems.find((item) => item.id === id);
+            if (product.quantity === 1) {
+                cartItems = cartItems.filter(item => item.id !== product.id)
+                // console.log(a);
+                
+                cardAddRightRenderFunction()
+            } else {
+                product.quantity--
+                cardAddRightRenderFunction()   
+            }
+        })
+
+        
+    });
+    
+}
+function productincremes(params) {
+    let increment = document.querySelectorAll('.increment')
+    increment.forEach((button)=>{
+        button.addEventListener('click',(event)=>{            
+            let id = Number(button.dataset.id);
+            let product = cartItems.find((item) => item.id === id);
+            product.quantity++
+            cardAddRightRenderFunction()
+        })
+        
+    })
 }

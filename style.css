@@ -637,3 +637,7 @@ header{
     background-color: #FFD814;
     cursor: pointer;
 }
+.left_card_btn_div button .product_decrement{
+    font-size: 39px;
+    margin-bottom: 2px;
+}
