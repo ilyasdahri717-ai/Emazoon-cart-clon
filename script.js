@@ -61,15 +61,20 @@ const cartPopUp = document.getElementById('cart_pop_up');
 const productCart = document.getElementById('card');
 const addCart = document.getElementById('add-cart');
 
+let save = localStorage.getItem('cartItems')
+// let show = JSON.parse(save)
 let products = [];
-let cartItems = [];
+let cartItems = save ? JSON.parse(save) : [];
 
+
+function saveProduct() {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems))
+}
 
 function renderProduct() {
-        productCart.innerHTML = "";
-
-        productList.forEach((product) => {
-            productCart.innerHTML += `
+    productCart.innerHTML = "";
+    productList.forEach((product) => {
+        productCart.innerHTML += `
                 <div class="card_inar_box">
                     <div class="card_img_box">
                         <img src="aside/imags/card_imgs_nobg/${product.img}" alt="">
@@ -114,9 +119,13 @@ function renderProduct() {
                         </div>
                     </div>
                 </div> `
-        })
+
+    })
+
 };
 renderProduct();
+
+
 
 
 function coatPopUpRender(product) {
@@ -187,30 +196,30 @@ function coatPopUpRender(product) {
 
 let cartButton = document.querySelectorAll('.card_button_box');
 
-    cartButton.forEach((button) => {    
-        button.addEventListener('click', (event) => {
-            let id = Number(button.id)
-            const product = productList.find((item) => item.id === id);
-            cartPopUp.classList.remove('disply_none');
-            coatPopUpRender(product);
-            popUpCloseFunction(product);
-        })
+cartButton.forEach((button) => {
+    button.addEventListener('click', (event) => {
+        let id = Number(button.id)
+        const product = productList.find((item) => item.id === id);
+        cartPopUp.classList.remove('disply_none');
+        coatPopUpRender(product);
+        popUpCloseFunction(product);
     })
+})
 
 const rightCart = document.querySelector('.card_left_count');
 const cardAddRight = document.getElementById('card');
 const rightAddcard = document.querySelector('.left_add_cart')
 
- 
+
 
 function popUpCloseFunction(prod) {
-    
+
     const popCloseTop = document.getElementById('pop_close_one');
     const cancelCart = document.getElementById('cancel-cart');
     const addCartBtn = document.getElementById('add-cart');
     addCartBtn.addEventListener('click', (event) => {
         cartPopUp.classList.add('disply_none');
-        addCartBtnFunction(event,prod);
+        addCartBtnFunction(event, prod);
     })
     popCloseTop.addEventListener('click', () => {
         cartPopUp.classList.add('disply_none');
@@ -221,30 +230,32 @@ function popUpCloseFunction(prod) {
 }
 function addCartBtnFunction(params, prod) {
     let existingProduct = cartItems.find(item => item.id === prod.id);
-    
+
     if (existingProduct) {
-       existingProduct.quantity++
+        existingProduct.quantity++
         // console.log(cart2);   
     } else {
         cartItems.push({
-        id: prod.id,
-        productName: prod.productName, 
-        productPrice: prod.productPrice,
-        productPriceDismal: prod.productPriceDismal,
-        productDate: prod.productDate,
-        img: prod.img,
-        quantity: 1,
+            id: prod.id,
+            productName: prod.productName,
+            productPrice: prod.productPrice,
+            productPriceDismal: prod.productPriceDismal,
+            productDate: prod.productDate,
+            img: prod.img,
+            quantity: 1,
         })
-    }    
+    }
+    console.log('pakistan');
+
     rightCart.classList.remove('disply_none');
     cardAddRight.classList.remove('grid_4');
     cardAddRight.classList.add('grid_3');
+    saveProduct()
     cardAddRightRenderFunction()
 }
 function cardAddRightRenderFunction(params) {
     rightAddcard.innerHTML = "";
-    cartItems.forEach((product)=>{
-        
+    cartItems.forEach((product) => {
         rightAddcard.innerHTML += `
         <li>
             <div class="left_card_img_box flex_box">
@@ -263,41 +274,41 @@ function cardAddRightRenderFunction(params) {
             </div>
         </li>
     `
-    productdecres()
-    productincremes()
+        productdecres()
+        productincremes()
     })
-    
+
 }
 function productdecres() {
     let decrement = document.querySelectorAll('.decrement');
-    decrement.forEach((button)=>{
-        button.addEventListener('click',(event)=>{
+    decrement.forEach((button) => {
+        button.addEventListener('click', (event) => {
             let id = Number(button.dataset.id);
             let product = cartItems.find((item) => item.id === id);
             if (product.quantity === 1) {
                 cartItems = cartItems.filter(item => item.id !== product.id)
-                // console.log(a);
-                
+                saveProduct()
                 cardAddRightRenderFunction()
             } else {
                 product.quantity--
-                cardAddRightRenderFunction()   
+                saveProduct()
+                cardAddRightRenderFunction()
             }
         })
 
-        
     });
-    
+
 }
 function productincremes(params) {
     let increment = document.querySelectorAll('.increment')
-    increment.forEach((button)=>{
-        button.addEventListener('click',(event)=>{            
+    increment.forEach((button) => {
+        button.addEventListener('click', (event) => {
             let id = Number(button.dataset.id);
             let product = cartItems.find((item) => item.id === id);
             product.quantity++
+            saveProduct()
             cardAddRightRenderFunction()
         })
-        
+
     })
 }
