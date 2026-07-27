@@ -60,12 +60,22 @@ const productList = [
 const cartPopUp = document.getElementById('cart_pop_up');
 const productCart = document.getElementById('card');
 const addCart = document.getElementById('add-cart');
+const rightCart = document.querySelector('.card_left_count');
+const cardAddRight = document.getElementById('card');
+const rightAddcard = document.querySelector('.left_add_cart')
 
 let save = localStorage.getItem('cartItems')
 // let show = JSON.parse(save)
 let products = [];
 let cartItems = save ? JSON.parse(save) : [];
 
+if (cartItems.length > 0) {
+    rightCart.classList.remove('disply_none');
+    cardAddRight.classList.remove('grid_4');
+    cardAddRight.classList.add('grid_3');
+
+    cardAddRightRenderFunction();
+}
 
 function saveProduct() {
     localStorage.setItem('cartItems', JSON.stringify(cartItems))
@@ -124,13 +134,14 @@ function renderProduct() {
 };
 
 renderProduct();
-
+cardAddRightRenderFunction()
 function addCartBtnFunction(params, prod) {
     let existingProduct = cartItems.find(item => item.id === prod.id);
 
     if (existingProduct) {
         existingProduct.quantity++
-        // console.log(cart2);   
+        saveProduct()
+        cardAddRightRenderFunction()   
     } else {
         cartItems.push({
             id: prod.id,
@@ -141,12 +152,14 @@ function addCartBtnFunction(params, prod) {
             img: prod.img,
             quantity: 1,
         })
+        saveProduct()
+        cardAddRightRenderFunction()
     }
     if (cartItems.length > 0) {
         rightCart.classList.remove('disply_none');
         cardAddRight.classList.remove('grid_4');
         cardAddRight.classList.add('grid_3');
-
+        saveProduct()
         cardAddRightRenderFunction();
     }
 }
@@ -232,10 +245,6 @@ cartButton.forEach((button) => {
     })
 })
 
-const rightCart = document.querySelector('.card_left_count');
-const cardAddRight = document.getElementById('card');
-const rightAddcard = document.querySelector('.left_add_cart')
-
 
 
 function popUpCloseFunction(prod) {
@@ -257,6 +266,8 @@ function popUpCloseFunction(prod) {
 
 
 function cardAddRightRenderFunction(params) {
+    console.log("Function chal gaya");
+    console.log(cartItems);
     rightAddcard.innerHTML = "";
     cartItems.forEach((product) => {
         rightAddcard.innerHTML += `
