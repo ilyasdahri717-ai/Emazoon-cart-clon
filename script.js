@@ -73,6 +73,11 @@ const rightCart = document.querySelector('.card_left_count');
 const cardAddRight = document.getElementById('card');
 const rightAddcard = document.querySelector('.left_add_cart')
 const priceDisplay = document.getElementById('total_price')
+const cartCount = document.querySelector('.cart_count')
+
+
+
+
 
 let save = localStorage.getItem('cartItems')
 // let show = JSON.parse(save)
@@ -172,6 +177,7 @@ function addCartBtnFunction(params, prod) {
         saveProduct()
         cardAddRightRenderFunction();
         totalPriceFunction()
+        totalItemFunction()
     }
 }
 
@@ -313,11 +319,13 @@ function productdecres() {
                 saveProduct()
                 cardAddRightRenderFunction()
                 totalPriceFunction()
+                totalItemFunction()
             } else {
                 product.quantity--
                 saveProduct()
                 cardAddRightRenderFunction()
                 totalPriceFunction()
+                totalItemFunction()
             }
         })
 
@@ -334,6 +342,7 @@ function productincremes(params) {
             saveProduct()
             cardAddRightRenderFunction()
             totalPriceFunction()
+            totalItemFunction()
         })
 
     })
@@ -344,10 +353,16 @@ function totalPriceFunction(params) {
        price = price * item.quantity
        priceDisplay.textContent = price.toFixed(2);   
     },0)
-    
     saveProduct()
     cardAddRightRenderFunction()
-    
 }
 totalPriceFunction()
+function totalItemFunction() {
+    let totalItem = 0;
+cartItems.forEach((value)=>{
+    totalItem += value.quantity;
+})
+cartCount.textContent = totalItem
+}
+totalItemFunction()
 
