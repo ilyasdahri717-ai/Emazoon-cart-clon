@@ -54,6 +54,15 @@ const productList = [
         productDate: "Wed, Apr 20",
         img: "card-img6.png",
         quantity: 1,
+    },
+    {
+        id: 7,
+        productName: "WIHOLL Summer Dresses Cap Sleeve Crewneck Maxi Long Casual Dress with Pockets Beach Vacation Sundresses 2026 Trendy",
+        productPrice: 450,
+        productPriceDismal: 99,
+        productDate: "Wed, Apr 20",
+        img: "card-img6.png",
+        quantity: 1,
     }
 ];
 
@@ -63,6 +72,7 @@ const addCart = document.getElementById('add-cart');
 const rightCart = document.querySelector('.card_left_count');
 const cardAddRight = document.getElementById('card');
 const rightAddcard = document.querySelector('.left_add_cart')
+const priceDisplay = document.getElementById('total_price')
 
 let save = localStorage.getItem('cartItems')
 // let show = JSON.parse(save)
@@ -141,7 +151,7 @@ function addCartBtnFunction(params, prod) {
     if (existingProduct) {
         existingProduct.quantity++
         saveProduct()
-        cardAddRightRenderFunction()   
+        cardAddRightRenderFunction()
     } else {
         cartItems.push({
             id: prod.id,
@@ -161,6 +171,7 @@ function addCartBtnFunction(params, prod) {
         cardAddRight.classList.add('grid_3');
         saveProduct()
         cardAddRightRenderFunction();
+        totalPriceFunction()
     }
 }
 
@@ -266,8 +277,6 @@ function popUpCloseFunction(prod) {
 
 
 function cardAddRightRenderFunction(params) {
-    console.log("Function chal gaya");
-    console.log(cartItems);
     rightAddcard.innerHTML = "";
     cartItems.forEach((product) => {
         rightAddcard.innerHTML += `
@@ -303,10 +312,12 @@ function productdecres() {
                 cartItems = cartItems.filter(item => item.id !== product.id)
                 saveProduct()
                 cardAddRightRenderFunction()
+                totalPriceFunction()
             } else {
                 product.quantity--
                 saveProduct()
                 cardAddRightRenderFunction()
+                totalPriceFunction()
             }
         })
 
@@ -322,7 +333,21 @@ function productincremes(params) {
             product.quantity++
             saveProduct()
             cardAddRightRenderFunction()
+            totalPriceFunction()
         })
 
     })
 }
+function totalPriceFunction(params) {
+    let totalPrice = cartItems.reduce((total, item) => {
+       let price = total + item.productPrice + (item.productPriceDismal / 100)
+       price = price * item.quantity
+       priceDisplay.textContent = price.toFixed(2);   
+    },0)
+    
+    saveProduct()
+    cardAddRightRenderFunction()
+    
+}
+totalPriceFunction()
+
