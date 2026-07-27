@@ -71,6 +71,7 @@ function saveProduct() {
     localStorage.setItem('cartItems', JSON.stringify(cartItems))
 }
 
+
 function renderProduct() {
     productCart.innerHTML = "";
     productList.forEach((product) => {
@@ -119,11 +120,36 @@ function renderProduct() {
                         </div>
                     </div>
                 </div> `
-
     })
-
 };
+
 renderProduct();
+
+function addCartBtnFunction(params, prod) {
+    let existingProduct = cartItems.find(item => item.id === prod.id);
+
+    if (existingProduct) {
+        existingProduct.quantity++
+        // console.log(cart2);   
+    } else {
+        cartItems.push({
+            id: prod.id,
+            productName: prod.productName,
+            productPrice: prod.productPrice,
+            productPriceDismal: prod.productPriceDismal,
+            productDate: prod.productDate,
+            img: prod.img,
+            quantity: 1,
+        })
+    }
+    if (cartItems.length > 0) {
+        rightCart.classList.remove('disply_none');
+        cardAddRight.classList.remove('grid_4');
+        cardAddRight.classList.add('grid_3');
+
+        cardAddRightRenderFunction();
+    }
+}
 
 
 
@@ -228,31 +254,8 @@ function popUpCloseFunction(prod) {
         cartPopUp.classList.add('disply_none');
     })
 }
-function addCartBtnFunction(params, prod) {
-    let existingProduct = cartItems.find(item => item.id === prod.id);
 
-    if (existingProduct) {
-        existingProduct.quantity++
-        // console.log(cart2);   
-    } else {
-        cartItems.push({
-            id: prod.id,
-            productName: prod.productName,
-            productPrice: prod.productPrice,
-            productPriceDismal: prod.productPriceDismal,
-            productDate: prod.productDate,
-            img: prod.img,
-            quantity: 1,
-        })
-    }
-    console.log('pakistan');
 
-    rightCart.classList.remove('disply_none');
-    cardAddRight.classList.remove('grid_4');
-    cardAddRight.classList.add('grid_3');
-    saveProduct()
-    cardAddRightRenderFunction()
-}
 function cardAddRightRenderFunction(params) {
     rightAddcard.innerHTML = "";
     cartItems.forEach((product) => {
@@ -274,9 +277,9 @@ function cardAddRightRenderFunction(params) {
             </div>
         </li>
     `
-        productdecres()
-        productincremes()
     })
+    productdecres()
+    productincremes()
 
 }
 function productdecres() {
