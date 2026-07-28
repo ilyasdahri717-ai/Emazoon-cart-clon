@@ -77,8 +77,6 @@ const cartCount = document.querySelector('.cart_count')
 
 
 
-
-
 let save = localStorage.getItem('cartItems')
 // let show = JSON.parse(save)
 let products = [];
@@ -304,69 +302,67 @@ function cardAddRightRenderFunction(params) {
         </li>
     `
     })
-    productdecres()
-    productincremes()
-
+    // productdecres()
+    // productincremes()
 }
-function productdecres() {
-    let decrement = document.querySelectorAll('.decrement');
-    decrement.forEach((button) => {
-        button.addEventListener('click', (event) => {
-            let id = Number(button.dataset.id);
-            let product = cartItems.find((item) => item.id === id);
-            if (product.quantity === 1) {
-                cartItems = cartItems.filter(item => item.id !== product.id)
-                saveProduct()
-                cardAddRightRenderFunction()
-                totalPriceFunction()
-                totalItemFunction()
-            } else {
-                product.quantity--
-                saveProduct()
-                cardAddRightRenderFunction()
-                totalPriceFunction()
-                totalItemFunction()
-            }
-        })
+rightAddcard.addEventListener('click', (event) => {
+    const button = event.target.closest("button");
+    console.log(button)
+    const id = Number(button.dataset.id)
 
-    });
+    if (button.classList.contains("increment")) {
+        productIncrement(id);
+    }
 
+    if (button.classList.contains("decrement")) {
+        console.log(id);
+        productDecrement(id)
+
+    }
+})
+
+function productDecrement(id) {
+    let product = cartItems.find((item) => item.id === id);
+    if (product.quantity === 1) {
+        cartItems = cartItems.filter(item => item.id !== product.id)
+        saveProduct()
+        cardAddRightRenderFunction()
+        totalPriceFunction()
+        totalItemFunction()
+    } else {
+        product.quantity--
+        saveProduct()
+        cardAddRightRenderFunction()
+        totalPriceFunction()
+        totalItemFunction()
+    }
 }
-function productincremes(params) {
-    let increment = document.querySelectorAll('.increment')
-    increment.forEach((button) => {
-        button.addEventListener('click', (event) => {
-            let id = Number(button.dataset.id);
-            let product = cartItems.find((item) => item.id === id);
-            product.quantity++
-            saveProduct()
-            cardAddRightRenderFunction()
-            totalPriceFunction()
-            totalItemFunction()
-        })
-
-    })
+function productIncrement(id) {
+    let product1 = cartItems.find((item) => item.id === id);
+    product1.quantity++;
+    saveProduct()
+    cardAddRightRenderFunction()
+    totalPriceFunction()
+    totalItemFunction()
 }
 function totalPriceFunction(params) {
     let totalPrice = cartItems.reduce((total, item) => {
-    let b = 0;
-       let price = item.productPrice + item.productPriceDismal / 100
-       price = price * item.quantity
-       console.log(price);
-       return total += price;   
-    },0)
+        let b = 0;
+        let price = item.productPrice + item.productPriceDismal / 100
+        price = price * item.quantity
+        return total += price;
+    }, 0)
     priceDisplay.textContent = totalPrice.toFixed(2)
-    console.log(totalPrice);
-    
+
 }
 totalPriceFunction()
 
 function totalItemFunction() {
     let totalItem = 0;
-cartItems.forEach((value)=>{
-    totalItem += value.quantity;
-})
-cartCount.textContent = totalItem
+    cartItems.forEach((value) => {
+        totalItem += value.quantity;
+    })
+    cartCount.textContent = totalItem
 }
 totalItemFunction()
 
