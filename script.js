@@ -349,14 +349,18 @@ function productincremes(params) {
 }
 function totalPriceFunction(params) {
     let totalPrice = cartItems.reduce((total, item) => {
-       let price = total + item.productPrice + (item.productPriceDismal / 100)
+    let b = 0;
+       let price = item.productPrice + item.productPriceDismal / 100
        price = price * item.quantity
-       priceDisplay.textContent = price.toFixed(2);   
+       console.log(price);
+       return total += price;   
     },0)
-    saveProduct()
-    cardAddRightRenderFunction()
+    priceDisplay.textContent = totalPrice.toFixed(2)
+    console.log(totalPrice);
+    
 }
 totalPriceFunction()
+
 function totalItemFunction() {
     let totalItem = 0;
 cartItems.forEach((value)=>{
