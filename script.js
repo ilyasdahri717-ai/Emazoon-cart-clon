@@ -1,5 +1,3 @@
-// import { productList } from "./data.js";
-// const card = document.querySelector('.card');
 const productList = [
     {
         id: 1,
@@ -9,6 +7,26 @@ const productList = [
         productDate: "Wed, Jul 29",
         img: "card-img1.png",
         quantity: 1,
+        sizes: [
+            {
+                size: "x-Smill"
+            },
+            {
+                size: "Smill",
+
+            },
+            {
+                size: "Medium",
+
+            },
+            {
+                size: "Large",
+
+            },
+            {
+                size: "x-Large"
+            }
+        ]
     },
     {
         id: 2,
@@ -18,6 +36,20 @@ const productList = [
         productDate: "mon, Aug 4",
         img: "card-img2.png",
         quantity: 1,
+        sizes: [
+            {
+                size: "Smill",
+
+            },
+            {
+                size: "Medium",
+
+            },
+            {
+                size: "Large",
+
+            },
+        ]
     },
     {
         id: 3,
@@ -27,6 +59,20 @@ const productList = [
         productDate: "Thu, Jul 30",
         img: "card-img3.png",
         quantity: 1,
+        sizes: [
+            {
+                size: "Smill",
+
+            },
+            {
+                size: "Medium",
+
+            },
+            {
+                size: "Large",
+
+            },
+        ]
     },
     {
         id: 4,
@@ -36,6 +82,20 @@ const productList = [
         productDate: "Wed, Apr 20",
         img: "card-img4.png",
         quantity: 1,
+        sizes: [
+            {
+                size: "Smill",
+
+            },
+            {
+                size: "Medium",
+
+            },
+            {
+                size: "Large",
+
+            },
+        ]
     },
     {
         id: 5,
@@ -45,6 +105,20 @@ const productList = [
         productDate: "Wed, Apr 20",
         img: "card-img5.png",
         quantity: 1,
+        sizes: [
+            {
+                size: "Smill",
+
+            },
+            {
+                size: "Medium",
+
+            },
+            {
+                size: "Large",
+
+            },
+        ]
     },
     {
         id: 6,
@@ -54,6 +128,20 @@ const productList = [
         productDate: "Wed, Apr 20",
         img: "card-img6.png",
         quantity: 1,
+        sizes: [
+            {
+                size: "Smill",
+
+            },
+            {
+                size: "Medium",
+
+            },
+            {
+                size: "Large",
+
+            },
+        ]
     },
     {
         id: 7,
@@ -63,8 +151,24 @@ const productList = [
         productDate: "Wed, Apr 20",
         img: "card-img6.png",
         quantity: 1,
+        sizes: [
+            {
+                size: "Smill",
+
+            },
+            {
+                size: "Medium",
+
+            },
+            {
+                size: "Large",
+
+            },
+        ]
     }
 ];
+
+
 
 const cartPopUp = document.getElementById('cart_pop_up');
 const productCart = document.getElementById('card');
@@ -75,10 +179,7 @@ const rightAddcard = document.querySelector('.left_add_cart')
 const priceDisplay = document.getElementById('total_price')
 const cartCount = document.querySelector('.cart_count')
 
-
-
 let save = localStorage.getItem('cartItems')
-// let show = JSON.parse(save)
 let products = [];
 let cartItems = save ? JSON.parse(save) : [];
 
@@ -94,10 +195,28 @@ function saveProduct() {
     localStorage.setItem('cartItems', JSON.stringify(cartItems))
 }
 
+productCart.addEventListener('click', (event) => {
+    let id = Number(event.target.id);
+    const div = event.target.closest(".card_button_box");
+    if (!div) return
+    if (div.classList.contains('card_button_box')) {
+        cartButtonFunction(id)
+    }
+})
 
 function renderProduct() {
+
     productCart.innerHTML = "";
     productList.forEach((product) => {
+        const { sizes } = product;
+        //   let e = sizes.map((item)=> item.size)
+        sizes.forEach((item) => {
+            // console.log(item.size[0]);
+
+        })
+
+
+
         productCart.innerHTML += `
                 <div class="card_inar_box">
                     <div class="card_img_box">
@@ -138,18 +257,27 @@ function renderProduct() {
                         </div>
                         <div class="card_button_box" id="${product.id}">
                             <button id="${product.id}">
-                                <span>Add to cart</span>
+                                Add to cart
                             </button>
                         </div>
                     </div>
                 </div> `
     })
 };
-
 renderProduct();
 cardAddRightRenderFunction()
-function addCartBtnFunction(params, prod) {
-    let existingProduct = cartItems.find(item => item.id === prod.id);
+
+function addCartBtnFunction({
+    id,
+    productName,
+    productPrice,
+    productPriceDismal,
+    productDate,
+    img,
+    quantity
+}) {
+
+    let existingProduct = cartItems.find(item => item.id === id);
 
     if (existingProduct) {
         existingProduct.quantity++
@@ -157,12 +285,12 @@ function addCartBtnFunction(params, prod) {
         cardAddRightRenderFunction()
     } else {
         cartItems.push({
-            id: prod.id,
-            productName: prod.productName,
-            productPrice: prod.productPrice,
-            productPriceDismal: prod.productPriceDismal,
-            productDate: prod.productDate,
-            img: prod.img,
+            id: id,
+            productName: productName,
+            productPrice: productPrice,
+            productPriceDismal: productPriceDismal,
+            productDate: productDate,
+            img: img,
             quantity: 1,
         })
         saveProduct()
@@ -178,13 +306,34 @@ function addCartBtnFunction(params, prod) {
         totalItemFunction()
     }
 }
+function cartButtonFunction(id) {
+    const product = productList.find((item) => item.id === id);
+    cartPopUp.classList.remove('disply_none');
+    coatPopUpRender(product);
+}
+let sizeAdd = 'smell';
+function sizeAddFunction(productSize) {
+    let prod = productSize;
+    sizeAdd = prod
+
+}
+console.log();
 
 
 
-
-function coatPopUpRender(product) {
-
-    cartPopUp.innerHTML = `
+function coatPopUpRender({
+    id,
+    productName,
+    productPrice,
+    productPriceDismal,
+    productDate,
+    img,
+    sizes,
+}) {
+    
+    
+    cartPopUp.innerHTML = '',
+        cartPopUp.innerHTML = `
     <div>
             <div class="cart_hader">
                 <i class="fa-solid fa-x close" id="pop_close_one"></i>
@@ -193,11 +342,11 @@ function coatPopUpRender(product) {
             <div class="cart_ifo">
                 <div class="cart_prot_datl">
                     <div class="cart_img">
-                        <img width="35px" src="aside/imags/card_imgs_nobg/${product.img}" alt="">
+                        <img width="35px" src="aside/imags/card_imgs_nobg/${img}" alt="">
                     </div>
                     <div class="cart_prod_mane">
                         <div class="summer_dras">
-                            <span>${product.productName}</span>
+                            <span>${productName}</span>
                             <div class="dras_colar">
                                 <span>color :</span>
                                 <span>Boho Paisley Print</span>
@@ -215,14 +364,21 @@ function coatPopUpRender(product) {
                     <div class="size_info">
                         <span>Size:</span>
                         <div class="size_list">
-                            <span>simal <i class="fa-solid fa-angle-down"></i></span>
+                        <div class="size_list_a">    
+                        <span class="add-size-spn">${sizeAdd}<i class="fa-solid fa-angle-down siz-don"></i>
                         </div>
+                        <ul class="disply_none" id="size-box">
+                        </ul>
+                        </span>
+                        </div>
+                        
+                        
                     </div>
                     <div class="prod_pric">
                         <div class="prise_pkr">
                             <span>PKR</span>
-                            <span>${product.productPrice}</span>
-                            <span>${product.productPriceDismal}</span>
+                            <span>${productPrice}</span>
+                            <span>${productPriceDismal}</span>
                         </div>
                         <div class="old_prs">
                             <span>List :</span>
@@ -232,13 +388,13 @@ function coatPopUpRender(product) {
                     <div class="lin_div"></div>
                     <div class="new_pric">
                         <span>PKR 11,940.92 delivery </span>
-                        <span>${product.productDate}</span>
+                        <span>${productDate}</span>
                     </div>
-                    <div class="add_cart_box">
-                        <span id="cancel-cart">
+                    <div class="add_cart_box" data-id="${id}">
+                        <span class="cencel-cart-c" id="cancel-cart">
                             <button>Cancel</button>
                         </span>
-                        <span id="add-cart">
+                        <span class="cart_add_t" id="add-cart">
                             <button>Add to cart</button>
                         </span>
                     </div>
@@ -246,68 +402,91 @@ function coatPopUpRender(product) {
             </div>
         </div>
     `
+    sizes.forEach((item)=>{
+       let sizeBoxId = document.getElementById('size-box');
+       let li = document.createElement('li');
+       li.textContent = item.size;
+       li.className = 'product-size';
+       sizeBoxId.appendChild(li)
+       console.log(li);
+       
+    })
 };
 
-let cartButton = document.querySelectorAll('.card_button_box');
 
-cartButton.forEach((button) => {
-    button.addEventListener('click', (event) => {
-        let id = Number(button.id)
-        const product = productList.find((item) => item.id === id);
-        cartPopUp.classList.remove('disply_none');
-        coatPopUpRender(product);
-        popUpCloseFunction(product);
-    })
-})
+cartPopUp.addEventListener('click', (event) => {
+    const sizeBox = document.getElementById('size-box')
+    const size = event.target.closest(".size_list_a")
+    let productSize = event.target.closest(".product-size")
+    const addCart = event.target.closest("#add-cart");
+    const cancelCart = event.target.closest("#cancel-cart");
 
+    if (productSize) {
+        sizeBox.classList.add('disply_none')
 
+    }
 
-function popUpCloseFunction(prod) {
+    if (size) {
+        sizeBox.classList.toggle('disply_none')
 
-    const popCloseTop = document.getElementById('pop_close_one');
-    const cancelCart = document.getElementById('cancel-cart');
-    const addCartBtn = document.getElementById('add-cart');
-    addCartBtn.addEventListener('click', (event) => {
+    }
+
+    if (addCart) {
+        const box = event.target.closest(".add_cart_box");
+
+        const id = Number(box.dataset.id);
+
+        const product = productList.find(item => item.id === id);
+
+        addCartBtnFunction(product);
+        const addSizeSpan = document.querySelector(".add-size-spn");
+        addSizeSpan.textContent = productSize.textContent;
+
+    }
+
+    if (cancelCart) {
         cartPopUp.classList.add('disply_none');
-        addCartBtnFunction(event, prod);
-    })
-    popCloseTop.addEventListener('click', () => {
-        cartPopUp.classList.add('disply_none');
-    });
-    cancelCart.addEventListener('click', () => {
-        cartPopUp.classList.add('disply_none');
-    })
-}
+    }
+
+}, false)
 
 
-function cardAddRightRenderFunction(params) {
+function cardAddRightRenderFunction() {
     rightAddcard.innerHTML = "";
-    cartItems.forEach((product) => {
+    cartItems.forEach(({
+        id,
+        productName,
+        productPrice,
+        productPriceDismal,
+        productDate,
+        img,
+        quantity
+    }) => {
         rightAddcard.innerHTML += `
         <li>
             <div class="left_card_img_box flex_box">
-                <img src="aside/imags/card_imgs_nobg/${product.img}" alt="">
+                <img src="aside/imags/card_imgs_nobg/${img}" alt="">
             </div>
             <div class="Limited_time_div">
                 <span>Limited time</span>
-                <span>PKR ${product.productPrice}.${product.productPriceDismal}</span>
+                <span>PKR ${productPrice}.${productPriceDismal}</span>
             </div>
             <div  class="left_card_btn_div">
-                <button class="decrement" data-id="${product.id}"><span class="product_decrement">-</span></button>
+                <button class="decrement" data-id="${id}"><span class="product_decrement">-</span></button>
                 <div class="count_div">
-                    <span>${product.quantity}</span>
+                    <span>${quantity}</span>
                 </div>
-                <button class="increment" data-id="${product.id}"><span class="product_increment">+</span></button>
+                <button class="increment" data-id="${id}"><span class="product_increment">+</span></button>
             </div>
         </li>
     `
     })
-    // productdecres()
-    // productincremes()
 }
+// --------------------------secind------------------
+
 rightAddcard.addEventListener('click', (event) => {
     const button = event.target.closest("button");
-    console.log(button)
+    // console.log(button)
     const id = Number(button.dataset.id)
 
     if (button.classList.contains("increment")) {
@@ -315,7 +494,7 @@ rightAddcard.addEventListener('click', (event) => {
     }
 
     if (button.classList.contains("decrement")) {
-        console.log(id);
+        // console.log(id);
         productDecrement(id)
 
     }

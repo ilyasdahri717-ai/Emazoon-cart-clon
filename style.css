@@ -507,7 +507,8 @@ header{
     position: fixed;
     top: 148px;
     left: 30%;
-    width: 36vw;
+    width: 500px;
+    height: 437px;
     box-shadow: 0 0 14px 0 rgba(15, 17, 17, .5);
     border-radius: 0.5rem;
     background-color: #fff;
@@ -555,15 +556,17 @@ header{
     width: 28.33%;
 }
 .size_list{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border: 1px solid #756d6d;
-    padding: 5px 11px;
     width: 86px;
     border-radius: 10px;
     margin: 6px;
     cursor: pointer;
+}
+.size_list_a{
+    padding: 5px;
+}
+.size_list_a :nth-child(1){
+    padding-left: 8px;
 }
 .size_list span{
     font-size: 13px;
@@ -587,13 +590,35 @@ header{
     font-weight: 400;
 }
 .size_info{
+    position: absolute;
     margin: 11px 0px;
+    background-color: #fff;
+}
+.size_info ul li{
+    width: 124%;
+    padding: 3px 8px;
+    list-style: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(15, 17, 17);
+}
+.size_info ul li:hover{
+    border: 1px solid #3e3a3a;
+    border-left: 5px solid #3e3a3a;
+}
+.size_info ul{
+    overflow: hidden;
+    padding-right: 14px;
+}
+.siz-don{
+    padding-left: 6px;
 }
 .prod_pric{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 7px;
+    margin-top: 67px;
 }
 .old_prs :nth-child(1){
     font-size: 12px;
@@ -640,4 +665,16 @@ header{
 .left_card_btn_div button .product_decrement{
     font-size: 39px;
     margin-bottom: 2px;
+}
+
+/* ------------------size------------------ */
+
+.size-box{
+    position: fixed;
+    top: 433px;
+    left: 43%;
+    z-index: 100;
+}
+.size-box-iner ul li{
+    list-style: none;
 }
